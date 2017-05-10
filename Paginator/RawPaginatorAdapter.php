@@ -5,6 +5,7 @@ namespace FOS\ElasticaBundle\Paginator;
 use Elastica\SearchableInterface;
 use Elastica\Query;
 use Elastica\ResultSet;
+use Elastica\SearchableInterface;
 use InvalidArgumentException;
 
 /**
@@ -90,6 +91,7 @@ class RawPaginatorAdapter implements PaginatorAdapterInterface
         $this->totalHits = $resultSet->getTotalHits();
         $this->aggregations = $resultSet->getAggregations();
         $this->suggests = $resultSet->getSuggests();
+        $this->maxScore = $resultSet->getMaxScore();
 
         return $resultSet;
     }
@@ -145,6 +147,19 @@ class RawPaginatorAdapter implements PaginatorAdapterInterface
 
         return $this->suggests;
     }
+
+    /**
+     * @return float
+     */
+    public function getMaxScore()
+    {
+        if (!isset($this->maxScore)) {
+            $this->maxScore = $this->searchable->search($this->query)->getMaxScore();
+        }
+
+        return $this->maxScore;
+    }
+
 
     /**
      * Returns the Query.
