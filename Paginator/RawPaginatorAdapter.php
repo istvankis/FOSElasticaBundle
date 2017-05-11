@@ -2,7 +2,6 @@
 
 namespace FOS\ElasticaBundle\Paginator;
 
-use Elastica\SearchableInterface;
 use Elastica\Query;
 use Elastica\ResultSet;
 use Elastica\SearchableInterface;
